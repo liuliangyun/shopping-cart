@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+第一周：
+实现两个页面，页面样式没有要求。接口使用trainer提供的mock api。
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+* 产品列表页面
+* 展示产品列表，产品item需要显示商品名称，价格，描述，添加到购物车按钮。
+* 购物车页面
+* 购物车有优惠：满1000 - 150。购物车需要显示商品总价（原价），折扣优惠金额，折扣后实际金额
+* 展示购物车中的商品，可调整每个商品的数量，从购物车中删除商品。购物车item需要显示每个商品原价以及优惠后的价格（例，一件商品200元，一件800元。两件商品分别的优惠后价格是170和680元）
 
-## Available Scripts
+mock server: https://github.com/demongodYY/fake-shopping-cart-server
 
-In the project directory, you can run:
+第二周
 
-### `npm start`
+* 将购物车读写改成local storage，不再调用
+* 额外增加多种优惠方式，可在购物车选择：整体打九折，满1000-150，3000-500，不使用优惠，进入页面默认采用最优惠价格。
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Tasking:
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* 初始化项目目录，搭建两个页面即产品列表页和购物车页
+* 产品列表页：ProductList -> ProductItem(name, price, description, addToCart)
+    * ProductList：
+        * 加载时请求产品列表数据
+        * 展示产品列表数据
+    * ProductItem：
+        * 展示产品数据
+        * 支持将产品添加到购物车
+* 购物车页：ShoppingCart -> CartItem(name, count, price, totalPrice)
+    * ShoppingCart:
+        * 加载时请求购物车列表数据
+        * 展示购物车列表数据
+        * 展示购物车列表总价
+        * 根据优惠方式展示购物车列表优惠后的总价
+    * CartItem:
+        * 展示购物车单项数据
+        * 支持增加单项的数量
+        * 支持减少单项的数量
+        * 根据优惠方式展示单项优惠后的价格
+    
