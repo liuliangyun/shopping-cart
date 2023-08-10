@@ -1,9 +1,23 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import ProductList from './index';
-import { BrowserRouter } from 'react-router-dom';
 
-test('should render Header component', () => {
-  render(<BrowserRouter><ProductList /></BrowserRouter>);
-  const headerComponent = screen.getByText('产品列表');
-  expect(headerComponent).toBeInTheDocument();
-});
+describe('ProductList test', () => {
+  let container = null
+  
+  beforeEach(() => {
+    const comp = render(<ProductList />)
+    container = comp.container;
+  })
+  
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+  
+  test('should render correct count product item', () => {
+    expect(container.getElementsByClassName('product-item').length).toBe(2)
+  })
+  
+  // test('should dispatch getProductList action', () => {
+  // })
+})
+
