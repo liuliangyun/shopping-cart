@@ -1,0 +1,20 @@
+.product-item {
+    margin-bottom: 20px;
+}
+
+.product-name, .product-price {
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+}
+
+.product-description {
+    font-size: 16px;
+    color: darkgrey;
+    margin-top: 10px;
+}
+
+.add-to-shopping-cart {
+    margin-top: 10px;
+}
+
