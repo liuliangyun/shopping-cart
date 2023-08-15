@@ -1,5 +1,6 @@
 import CartItem from './components/CartItem'
 import { useState } from 'react'
+import { getSumPrice } from '../../utils/priceUtils'
 
 const mockCartItems = [
   {
@@ -24,6 +25,7 @@ const ShoppingCart = () => {
   return (
   <div>
     {cartItems.map(item => <CartItem key={item.id} />)}
+    <div>总价：{getSumPrice(cartItems)}元</div>
   </div>
   )
 }
