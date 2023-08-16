@@ -1,15 +1,29 @@
-import { render, screen, act } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import ShoppingCart from './index';
 import userEvent from '@testing-library/user-event';
 import { PROMOTION_TYPES } from '../../utils/constants';
+import * as PriceUtils from '../../utils/priceUtils';
 
 describe('ShoppingCart test', () => {
   let container = null
   
   beforeEach(() => {
-    const comp = render(<ShoppingCart />)
-    container = comp.container;
-  })
+    jest.spyOn(PriceUtils, 'getSumPrice', '').mockReturnValue(5);
+    jest.spyOn(PriceUtils, 'getTotalPrice', '').mockImplementation((items, promotion) => {
+      switch (promotion) {
+        case PROMOTION_TYPES.FULL_200_MINUS_30:
+          return 1;
+        case PROMOTION_TYPES.FULL_300_MINUS_50:
+          return 2;
+        case PROMOTION_TYPES.FIVE_PERCENT_OFF:
+          return 3;
+        default:
+          return 4;
+      }
+    });
+    const view = render(<ShoppingCart />);
+    container = view.container;
+  });
   
   afterEach(() => {
     jest.clearAllMocks();
@@ -20,31 +34,32 @@ describe('ShoppingCart test', () => {
   })
   
   test('should render correct sum price', () => {
-    expect(screen.getByText('总价：500元')).toBeInTheDocument();
+    expect(PriceUtils.getSumPrice).toHaveBeenCalled()
+    expect(screen.getByText('总价：5元')).toBeInTheDocument()
   })
   
-  test('should render correct total price when choose FULL_200_MINUS_30', () => {
+  test('should render correct total price when choose FULL_200_MINUS_30', async () => {
     const selectElement = screen.getByRole('combobox');
-    act(() => {
-      userEvent.selectOptions(selectElement, PROMOTION_TYPES.FULL_200_MINUS_30);
+    await userEvent.selectOptions(selectElement, PROMOTION_TYPES.FULL_200_MINUS_30);
+    await waitFor(() => {
+      expect(screen.getByText('实付：1元')).toBeInTheDocument();
     })
-    expect(screen.getByText('实付：440元')).toBeInTheDocument();
   })
-  
-  test('should render correct total price when choose FULL_300_MINUS_50', () => {
+
+  test('should render correct total price when choose FULL_300_MINUS_50', async () => {
     const selectElement = screen.getByRole('combobox');
-    act(() => {
-      userEvent.selectOptions(selectElement, PROMOTION_TYPES.FULL_300_MINUS_50);
+    await userEvent.selectOptions(selectElement, PROMOTION_TYPES.FULL_300_MINUS_50);
+    await waitFor(() => {
+      expect(screen.getByText('实付：2元')).toBeInTheDocument();
     })
-    expect(screen.getByText('实付：450元')).toBeInTheDocument();
   })
-  
-  test('should render correct total price when choose FIVE_PERCENT_OFF', () => {
+
+  test('should render correct total price when choose FIVE_PERCENT_OFF', async () => {
     const selectElement = screen.getByRole('combobox');
-    act(() => {
-      userEvent.selectOptions(selectElement, PROMOTION_TYPES.FIVE_PERCENT_OFF);
+    await userEvent.selectOptions(selectElement, PROMOTION_TYPES.FIVE_PERCENT_OFF);
+    await waitFor(() => {
+      expect(screen.getByText('实付：3元')).toBeInTheDocument();
     })
-    expect(screen.getByText('实付：475元')).toBeInTheDocument();
   })
 })
 

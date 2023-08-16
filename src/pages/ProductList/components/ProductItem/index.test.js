@@ -9,11 +9,8 @@ const mockProduct = {
 }
 
 describe('ProductItem test', () => {
-  let container = null
-  
   beforeEach(() => {
-    const comp = render(<ProductItem data={mockProduct} />)
-    container = comp.container;
+    render(<ProductItem data={mockProduct} />)
   })
   
   afterEach(() => {

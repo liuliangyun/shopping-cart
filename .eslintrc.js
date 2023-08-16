@@ -6,7 +6,8 @@ module.exports = {
   },
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:testing-library/react"
   ],
   "overrides": [
     {
@@ -26,7 +27,9 @@ module.exports = {
     "sourceType": "module"
   },
   "plugins": [
-    "react"
+    "react",
+    "testing-library",
+    "jest-dom",
   ],
   "settings": {
     "react": {
@@ -37,6 +40,9 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
     "no-unused-vars":"warn",
     "react/prop-types": "off",
+    "testing-library/no-render-in-setup": "off",
+    "testing-library/no-node-access": "off"
+  
   }
 }
 

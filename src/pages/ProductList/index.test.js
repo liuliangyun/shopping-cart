@@ -5,8 +5,8 @@ describe('ProductList test', () => {
   let container = null
   
   beforeEach(() => {
-    const comp = render(<ProductList />)
-    container = comp.container;
+    const view = render(<ProductList />)
+    container = view.container;
   })
   
   afterEach(() => {

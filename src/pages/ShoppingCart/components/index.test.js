@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import CartItem from './index.js';
 import userEvent from '@testing-library/user-event';
 
@@ -11,11 +11,9 @@ const mockCartItem = {
 }
 
 describe('Index test', () => {
-  let container = null
   
   beforeEach(() => {
-    const comp = render(<CartItem data={mockCartItem} />)
-    container = comp.container;
+    render(<CartItem data={mockCartItem} />)
   })
   
   afterEach(() => {
@@ -28,19 +26,19 @@ describe('Index test', () => {
     expect(screen.getByRole('textbox').value).toBe('10');
   })
   
-  test('should increase count when click increase button', () => {
+  test('should increase count when click increase button', async () => {
     const increaseElement = screen.getByRole('button', { name: '+' });
-    act(() => {
-      userEvent.click(increaseElement)
+    await userEvent.click(increaseElement)
+    await waitFor(() => {
+      expect(screen.getByRole('textbox').value).toBe('11');
     })
-    expect(screen.getByRole('textbox').value).toBe('11');
   })
   
-  test('should decrease count when click decrease button', () => {
+  test('should decrease count when click decrease button', async () => {
     const decreaseElement = screen.getByRole('button', { name: '-' });
-    act(() => {
-      userEvent.click(decreaseElement)
+    await userEvent.click(decreaseElement)
+    await waitFor(() => {
+      expect(screen.getByRole('textbox').value).toBe('9');
     })
-    expect(screen.getByRole('textbox').value).toBe('9');
   })
 })
