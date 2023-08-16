@@ -1,7 +1,13 @@
 .cart-item {
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.count-controller {
+    margin-left: 30px;
 }
 
 .cart-item-count {
-    margin-left: 30px;
+    width: 50px;
 }
