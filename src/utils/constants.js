@@ -1,0 +1,5 @@
+export const PROMOTION_TYPES = {
+  FULL_200_MINUS_30: '满200减30',
+  FULL_300_MINUS_50: '满300减50',
+  FIVE_PERCENT_OFF: '打95折',
+}
