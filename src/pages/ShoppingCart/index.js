@@ -1,4 +1,4 @@
-import CartItem from './components/CartItem'
+import CartItem from './components'
 import { useState } from 'react'
 import { getSumPrice, getTotalPrice } from '../../utils/priceUtils'
 import { PROMOTION_TYPES } from '../../utils/constants'
@@ -30,7 +30,7 @@ const ShoppingCart = () => {
   
   return (
   <div>
-    {cartItems.map(item => <CartItem key={item.id} />)}
+    {cartItems.map(item => <CartItem key={item.id} data={item} />)}
     <div className="shopping-cart-price">
       <select className="promotion-select" value={promotion} onChange={handlePromotionChange}>
         <option value="">请选择优惠方式</option>
