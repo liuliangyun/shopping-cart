@@ -1,6 +1,7 @@
 import reducer from './reducer';
 import * as actionCreator from './actionCreator';
 import { fromJS } from 'immutable';
+import { getStorage } from '../../storage';
 
 describe('cart reducer test', () => {
   it('should handle GET_CART_ITEMS action correct', () => {
@@ -13,6 +14,6 @@ describe('cart reducer test', () => {
       }]
     })
     const newState = reducer(state, actionCreator.getCartItems())
-    expect(newState.get('items').toJS()).toEqual(actionCreator.mockCartItems)
+    expect(newState.get('items').toJS()).toEqual(getStorage('cartItems'))
   })
 })

@@ -22,3 +22,31 @@ export const setStorage = (key, data) => {
   localStorage.setItem(key, newData)
 }
 setStorage('productList', mockProductList)
+setStorage('cartItems', [])
+
+export const addCartItemToStorage = (item) => {
+  const cartItems = getStorage('cartItems')
+  const index = cartItems.findIndex(cartItem => cartItem.id === item.id)
+  if (index === -1) {
+    const cartItem = { ...item, count: 1 }
+    cartItems.push(cartItem)
+  } else {
+    const cartItem = { ...cartItems[index], count: cartItems[index].count + 1 }
+    cartItems[index] = cartItem
+  }
+  setStorage('cartItems', cartItems)
+  return cartItems
+}
+
+export const removeCartItemFromStorage = (item) => {
+  const cartItems = getStorage('cartItems')
+  const index = cartItems.findIndex(cartItem => cartItem.id === item.id)
+  if (index === -1) {
+    console.error('该产品已从购物车移除')
+  } else {
+    const cartItem = { ...cartItems[index], count: cartItems[index].count - 1 }
+    cartItems[index] = cartItem
+  }
+  setStorage('cartItems', cartItems)
+  return cartItems
+}
