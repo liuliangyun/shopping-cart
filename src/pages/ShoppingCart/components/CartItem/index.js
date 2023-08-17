@@ -21,7 +21,7 @@ const CartItem = (props) => {
     <span className="cart-item-name">{data.name}</span>
     <span className="cart-item-price">({data.price}元)</span>
     <div className="count-controller">
-      <input type="button"  value="-" onClick={handleDecreaseCount} />
+      <input type="button"  value="-" disabled={count === 1} onClick={handleDecreaseCount} />
       <input className="cart-item-count" type="text" value={count} readOnly />
       <input type="button"  value="+" onClick={handleIncreaseCount} />
     </div>
