@@ -6,21 +6,20 @@ import { fromJS } from 'immutable';
 import { actionCreator } from '../../store/product'
 
 const mockStore = configureStore();
+const initState = fromJS({
+  product: {
+    list: [
+      {id:'1', name:'p1'},
+      {id:'2', name: 'p2'},
+    ]
+  }
+})
+const store = mockStore(initState)
 
 describe('ProductList test', () => {
   let container = null
-  let store = null
   
   beforeEach(() => {
-    const initState = fromJS({
-      product: {
-        list: [
-          {id:'1', name:'p1'},
-          {id:'2', name: 'p2'},
-        ]
-      }
-    })
-    store = mockStore(initState)
     const view = render(<Provider store={store}><ProductList /></Provider>)
     container = view.container;
   })

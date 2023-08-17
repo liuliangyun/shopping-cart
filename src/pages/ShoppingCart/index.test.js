@@ -9,10 +9,18 @@ import { fromJS } from 'immutable';
 import { actionCreator } from '../../store/cart';
 
 const mockStore = configureStore();
+const initState = fromJS({
+  cart: {
+    items: [
+      {id:'1', name:'c1'},
+      {id:'2', name: 'c2'},
+    ]
+  }
+})
+const store = mockStore(initState)
 
 describe('ShoppingCart test', () => {
   let container = null
-  let store = null
   
   beforeEach(() => {
     jest.spyOn(PriceUtils, 'getSumPrice', '').mockReturnValue(5);
@@ -28,15 +36,6 @@ describe('ShoppingCart test', () => {
           return 4;
       }
     });
-    const initState = fromJS({
-      cart: {
-        items: [
-          {id:'1', name:'c1'},
-          {id:'2', name: 'c2'},
-        ]
-      }
-    })
-    store = mockStore(initState)
     const view = render(<Provider store={store}><ShoppingCart /></Provider>);
     container = view.container;
   });

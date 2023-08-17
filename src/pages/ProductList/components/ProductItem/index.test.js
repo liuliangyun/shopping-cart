@@ -13,15 +13,15 @@ const mockProduct = {
   description: '第一个商品',
 }
 const mockStore = configureStore();
+const initState = fromJS({
+  cart: {
+    items: []
+  }
+})
+const store = mockStore(initState)
 
 describe('ProductItem test', () => {
-  let store = null
-  const initState = fromJS({
-    cart: {
-      items: []
-    }
-  })
-  store = mockStore(initState)
+  
   beforeEach(() => {
     render(<Provider store={store}><ProductItem data={mockProduct} /></Provider>)
   })
