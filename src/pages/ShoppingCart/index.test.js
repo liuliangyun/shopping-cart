@@ -3,9 +3,16 @@ import ShoppingCart from './index';
 import userEvent from '@testing-library/user-event';
 import { PROMOTION_TYPES } from '../../utils/constants';
 import * as PriceUtils from '../../utils/priceUtils';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+import { fromJS } from 'immutable';
+import { actionCreator } from '../../store/cart';
+
+const mockStore = configureStore();
 
 describe('ShoppingCart test', () => {
   let container = null
+  let store = null
   
   beforeEach(() => {
     jest.spyOn(PriceUtils, 'getSumPrice', '').mockReturnValue(5);
@@ -21,7 +28,16 @@ describe('ShoppingCart test', () => {
           return 4;
       }
     });
-    const view = render(<ShoppingCart />);
+    const initState = fromJS({
+      cart: {
+        items: [
+          {id:'1', name:'c1'},
+          {id:'2', name: 'c2'},
+        ]
+      }
+    })
+    store = mockStore(initState)
+    const view = render(<Provider store={store}><ShoppingCart /></Provider>);
     container = view.container;
   });
   
@@ -31,6 +47,12 @@ describe('ShoppingCart test', () => {
   
   test('should render correct count product item', () => {
     expect(container.getElementsByClassName('cart-item').length).toBe(2)
+  })
+  
+  test('should dispatch getCartItems action', () => {
+    const actions = store.getActions()
+    const expectedAction = actionCreator.getCartItems()
+    expect(actions).toContainEqual(expectedAction)
   })
   
   test('should render correct sum price', () => {

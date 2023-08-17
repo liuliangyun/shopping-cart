@@ -1,28 +1,21 @@
 import CartItem from './components'
+import { connect } from 'react-redux'
+import { useEffect } from 'react'
 import { useState } from 'react'
+import { actionCreator } from '../../store/cart'
 import { getSumPrice, getTotalPrice } from '../../utils/priceUtils'
 import { PROMOTION_TYPES } from '../../utils/constants'
 import './index.css'
 
-const mockCartItems = [
-  {
-    id: 'id1',
-    name: 'product1',
-    price: 100,
-    description: '第一个商品',
-    count: 1,
-  },
-  {
-    id: 'id2',
-    name: 'product2',
-    price: 200,
-    description: '第二个商品',
-    count: 2,
-  },
-]
-
-const ShoppingCart = () => {
-  const [cartItems] = useState(mockCartItems);
+const ShoppingCart = (props) => {
+  const { cartItems } = props;  // 获取从mapStateToProps传入的参数
+  const { getCartItems } = props;  // 获取从mapDispatchToProps传入的方法
+  
+  useEffect(() => {
+    // react18新特性：之所以执行两次，是为了模拟立即卸载组件和重新挂载组件。为了帮助开发者提前发现重复挂载造成的 Bug 的代码。 仅在开发模式("development")下，且使用了严格模式("Strict Mode")下会触发。
+    console.log('useEffect callback')
+    getCartItems()
+  }, [])
   const [promotion, setPromotion] = useState('');
   const handlePromotionChange = (event) => {
     setPromotion(event.target.value)
@@ -49,4 +42,19 @@ const ShoppingCart = () => {
   )
 }
 
-export default ShoppingCart;
+const mapStateToProps = (state) => {
+  return {
+    cartItems: state.getIn(['cart', 'items']).toJS()
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getCartItems: () => {
+      console.log('dispatch GET_CART_ITEMS action')
+      dispatch(actionCreator.getCartItems())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart);
