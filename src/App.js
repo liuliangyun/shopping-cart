@@ -3,10 +3,12 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import ProductList from './pages/ProductList'
 import ShoppingCart from './pages/ShoppingCart'
 import Header from './components/Header'
+import { Provider } from 'react-redux'
+import store from './store'
 
 function App() {
   return (
-    <div>
+    <Provider store={store}>
       <Router>
         <Header />
         <Routes>
@@ -15,7 +17,7 @@ function App() {
           <Route path="/" element={<Navigate replace to="/products" />} />
         </Routes>
       </Router>
-    </div>
+    </Provider>
   );
 }
 
