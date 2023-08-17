@@ -1,14 +1,18 @@
 import './index.css'
 import { connect } from 'react-redux'
+import { useState } from 'react';
 import { actionCreator } from '../../../../store/cart'
 
 const CartItem = (props) => {
   const { data } = props
   const { increaseCartItemCount, decreaseCartItemCount } = props
+  const [count, setCount] = useState(data.count)
   const handleIncreaseCount = () => {
+    setCount(count + 1)
     increaseCartItemCount(data)
   }
   const handleDecreaseCount = () => {
+    setCount(count - 1)
     decreaseCartItemCount(data)
   }
   
@@ -18,7 +22,7 @@ const CartItem = (props) => {
     <span className="cart-item-price">({data.price}元)</span>
     <div className="count-controller">
       <input type="button"  value="-" onClick={handleDecreaseCount} />
-      <input className="cart-item-count" type="text" value={data.count} readOnly />
+      <input className="cart-item-count" type="text" value={count} readOnly />
       <input type="button"  value="+" onClick={handleIncreaseCount} />
     </div>
   </div>

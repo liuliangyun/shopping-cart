@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import CartItem from './index.js';
 import userEvent from '@testing-library/user-event';
 import configureStore from 'redux-mock-store';
@@ -43,6 +43,9 @@ describe('Index test', () => {
     const actions = store.getActions();
     const expectedAction = actionCreator.increaseCartItemCount(mockCartItem);
     expect(actions).toContainEqual(expectedAction);
+    await waitFor(() => {
+      expect(screen.getByRole('textbox').value).toBe('11');
+    })
   })
   
   test('should decrease count when click decrease button', async () => {
@@ -51,5 +54,8 @@ describe('Index test', () => {
     const actions = store.getActions();
     const expectedAction = actionCreator.decreaseCartItemCount(mockCartItem);
     expect(actions).toContainEqual(expectedAction);
+    await waitFor(() => {
+      expect(screen.getByRole('textbox').value).toBe('9');
+    })
   })
 })
